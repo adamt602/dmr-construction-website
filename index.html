@@ -23,6 +23,7 @@
     <div style="display:{{ navLinksDisplay }}; gap:48px; align-items:center;">
       <a href="#hero" style="color:{{ navText }}; text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent; transition:color 0.35s ease;" style-hover="border-bottom:1px solid {{ navText }};">Home</a>
       <a href="#projects" style="color:{{ navText }}; text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent; transition:color 0.35s ease;" style-hover="border-bottom:1px solid {{ navText }};">Projects</a>
+      <a href="#gallery" style="color:{{ navText }}; text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent; transition:color 0.35s ease;" style-hover="border-bottom:1px solid {{ navText }};">Gallery</a>
       <a href="#services" style="color:{{ navText }}; text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent; transition:color 0.35s ease;" style-hover="border-bottom:1px solid {{ navText }};">Services</a>
       <a href="#about" style="color:{{ navText }}; text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent; transition:color 0.35s ease;" style-hover="border-bottom:1px solid {{ navText }};">About</a>
     </div>
@@ -35,6 +36,7 @@
       <div style="position:fixed; inset:0; z-index:101; background:oklch(0.98 0.003 90 / 0.99); backdrop-filter:blur(16px); display:flex; flex-direction:column; justify-content:center; padding:28px 48px;">
         <a href="#hero" onClick="{{ closeMobileMenu }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:32px; font-weight:700; padding:20px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08);">Home</a>
         <a href="#projects" onClick="{{ closeMobileMenu }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:32px; font-weight:700; padding:20px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08);">Projects</a>
+        <a href="#gallery" onClick="{{ closeMobileMenu }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:32px; font-weight:700; padding:20px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08);">Gallery</a>
         <a href="#services" onClick="{{ closeMobileMenu }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:32px; font-weight:700; padding:20px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08);">Services</a>
         <a href="#about" onClick="{{ closeMobileMenu }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:32px; font-weight:700; padding:20px 0;">About</a>
       </div>
@@ -98,6 +100,28 @@
         </div>
       </sc-for>
     </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" style="padding:160px 48px; max-width:1400px; margin:0 auto;">
+    <div style="margin-bottom:56px; text-align:center;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.55 0.08 240); margin-bottom:16px;">Project Gallery</div>
+      <h2 style="font-size:clamp(28px,3.5vw,42px); letter-spacing:-0.02em; font-weight:700; margin:0 0 16px;">A closer look at the work.</h2>
+      <p style="font-size:17px; color:oklch(0.5 0.005 250); max-width:520px; margin:0 auto;">Framing, finishing, and detail shots from recent commercial builds.</p>
+    </div>
+    <div style="column-count:3; column-gap:20px;">
+      <sc-for list="{{ galleryPhotos }}" as="g" hint-placeholder-count="13">
+        <div onClick="{{ g.onOpen }}" style="break-inside:avoid; margin-bottom:20px; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 1px 3px oklch(0.18 0.005 250 / 0.08);">
+          <img src="{{ g.photo }}" alt="Project detail" style="display:block; width:100%; height:auto; transition:transform 0.5s ease, filter 0.4s ease;" style-hover="transform:scale(1.05); filter:brightness(1.05);"/>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ lightboxOpen }}">
+      <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:200; background:oklch(0.05 0.005 250 / 0.94); display:flex; align-items:center; justify-content:center; padding:40px; cursor:zoom-out;">
+        <img src="{{ lightboxPhoto }}" alt="Project detail large" style="max-width:100%; max-height:100%; border-radius:8px; box-shadow:0 20px 60px oklch(0 0 0 / 0.5);"/>
+        <button onClick="{{ closeLightbox }}" style="position:absolute; top:32px; right:40px; background:none; border:none; color:oklch(0.98 0.003 90); font-size:36px; line-height:1; cursor:pointer; padding:8px;">×</button>
+      </div>
+    </sc-if>
   </section>
 
   <!-- SERVICES -->
@@ -230,6 +254,7 @@
       <img src="uploads/logo.png" alt="DMR" style="height:72px; width:auto; filter:brightness(0) invert(1);"><div style="display:flex; gap:36px; flex-wrap:wrap;">
         <a href="#hero" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Home</a>
         <a href="#projects" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Projects</a>
+        <a href="#gallery" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
         <a href="#services" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Services</a>
         <a href="#about" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">About</a>
       </div>
@@ -247,7 +272,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { hoveredIdx: null, scrolled: false, revealed: {}, statsProgress: 0, isMobile: false, mobileMenuOpen: false };
+  state = { hoveredIdx: null, scrolled: false, revealed: {}, statsProgress: 0, isMobile: false, mobileMenuOpen: false, lightboxPhoto: null };
   componentDidMount() {
     this._onScroll = () => {
       const scrolled = window.scrollY > 60;
@@ -327,7 +352,26 @@ class Component extends DCLogic {
       onLeave: () => this.setState({ hoveredIdx: null }),
     }));
     const navText = scrolled ? 'oklch(0.18 0.005 250)' : 'oklch(0.98 0.003 90)';
+    const galleryPaths = [
+      'uploads/imgi_10_Our-Projects-Lobby-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_11_DavidZwirner-exteriorBlock5-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_11_Framestore-Lounch-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
+      'uploads/imgi_11_Our-Projects-Lobby-bar2-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_12_LincolnBlvd-exteriorBlock1-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_12_Our-Projects-Lobby1-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_13_DavidZwirner-exteriorBlock4-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_14_DavidZwirner-exteriorBlock3-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_14_Our-Projects-Lobby3-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_16_Our-Projects-patio-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_17_DavidZwirner-exteriorBlock7-ReaumeRichardson_AdaptiveReuse-1.jpg',
+      'uploads/imgi_8_Framestore-Rooftop-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
+      'uploads/imgi_9_Header.jpg',
+    ];
     return {
+      galleryPhotos: galleryPaths.map((photo) => ({ photo, onOpen: () => { this.setState({ lightboxPhoto: photo }); document.body.style.overflow = 'hidden'; } })),
+      lightboxOpen: !!this.state.lightboxPhoto,
+      lightboxPhoto: this.state.lightboxPhoto,
+      closeLightbox: () => { this.setState({ lightboxPhoto: null }); document.body.style.overflow = ''; },
       navBg: scrolled ? 'oklch(0.98 0.003 90 / 0.85)' : 'transparent',
       navText: navText,
       navLogoFilter: scrolled ? 'none' : 'brightness(0) invert(1) drop-shadow(0 1px 4px oklch(0.1 0.005 250 / 0.5))',
