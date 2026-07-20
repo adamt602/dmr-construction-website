@@ -32,16 +32,16 @@
       <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:opacity 0.3s ease; opacity:{{ barMidOpacity }};"></span>
       <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:transform 0.3s ease; transform:{{ barBotTransform }};"></span>
     </button>
-    <sc-if value="{{ mobileMenuOpen }}">
-      <div style="position:fixed; inset:0; z-index:101; background:oklch(0.98 0.003 90 / 0.99); backdrop-filter:blur(16px); display:flex; flex-direction:column; justify-content:center; overflow-y:auto; padding:100px 32px 40px;">
-        <a href="index.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Home</a>
-        <a href="index.dc.html#projects" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
-        <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
-        <a href="index.dc.html#services" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Services</a>
-        <a href="index.dc.html#about" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">About</a>
-      </div>
-    </sc-if>
   </nav>
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed; inset:0; z-index:101; background:oklch(0.98 0.003 90 / 0.99); backdrop-filter:blur(16px); display:flex; flex-direction:column; justify-content:center; overflow-y:auto; padding:100px 32px 40px;">
+      <a href="index.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Home</a>
+      <a href="index.dc.html#projects" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
+      <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
+      <a href="index.dc.html#services" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Services</a>
+      <a href="index.dc.html#about" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">About</a>
+    </div>
+  </sc-if>
 
   <!-- HEADER -->
   <section style="padding:190px 48px 64px; max-width:1400px; margin:0 auto; text-align:center;">
@@ -55,7 +55,7 @@
     <div style="column-count:{{ galleryColumnCount }}; column-gap:20px;">
       <sc-for list="{{ galleryPhotos }}" as="g" hint-placeholder-count="24">
         <div onClick="{{ g.onOpen }}" style="break-inside:avoid; margin-bottom:20px; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 1px 3px oklch(0.18 0.005 250 / 0.08);">
-          <img src="{{ g.photo }}" alt="Project detail" style="display:block; width:100%; height:auto; transition:transform 0.5s ease, filter 0.4s ease;" style-hover="transform:scale(1.05); filter:brightness(1.05);"/>
+          <img src="{{ g.displayPhoto }}" alt="Project detail" style="display:block; width:100%; height:auto; transition:transform 0.5s ease, filter 0.4s ease;" style-hover="transform:scale(1.05); filter:brightness(1.05);"/>
         </div>
       </sc-for>
     </div>
@@ -78,9 +78,9 @@
         <a href="index.dc.html#about" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">About</a>
       </div>
       <div style="display:flex; gap:16px;">
-        <div style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2);"></div>
-        <div style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2);"></div>
-        <div style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2);"></div>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.98 0.003 90)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="oklch(0.98 0.003 90)" stroke="none"/></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.7 22H1.6l8.2-9.3L1 2h7l4.9 6.1L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
       </div>
     </div>
     <div style="max-width:1400px; margin:0 auto; padding-top:28px; font-size:13px; color:oklch(0.55 0.005 90);">© 2026 DMR Commercial Drywall. All rights reserved.</div>
@@ -91,7 +91,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { isMobile: false, mobileMenuOpen: false, lightboxPhoto: null };
+  state = { isMobile: false, mobileMenuOpen: false, lightboxPhoto: null, scrollProgress: 0 };
   componentDidMount() {
     this._onResize = () => {
       const isMobile = window.innerWidth <= 880;
@@ -99,14 +99,21 @@ class Component extends DCLogic {
     };
     window.addEventListener('resize', this._onResize);
     this._onResize();
+    this._onScroll = () => {
+      const doc = document.documentElement;
+      const progress = doc.scrollHeight > doc.clientHeight ? (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100 : 0;
+      this.setState({ scrollProgress: progress });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
     document.body.style.overflow = '';
   }
   renderVals() {
     const galleryPaths = [
-      'uploads/imgi_9_Header.jpg',
+      'uploads/imgi_9_Header.jpg::uploads/imgi_16_Project-page-detail-portrait-Downstream1.jpg',
       'uploads/imgi_9_740-Broadway-Adaptive-reuse-Reaume-Richardson-los-angeles-construction.jpg',
       'uploads/imgi_15_DavidZwirner-GeneralContractor-exterior-ReaumeRichardson-Wide_AdaptiveReuse.jpg',
       'uploads/imgi_11_DavidZwirner-exteriorBlock5-ReaumeRichardson_AdaptiveReuse.jpg',
@@ -152,8 +159,13 @@ class Component extends DCLogic {
       'uploads/imgi_18_Project-page-detail-landscape-interior-openspace2.jpg',
     ];
     return {
-      galleryPhotos: galleryPaths.map((photo) => ({ photo, onOpen: () => { this.setState({ lightboxPhoto: photo }); document.body.style.overflow = 'hidden'; } })),
+      galleryPhotos: galleryPaths.map((entry) => {
+        const [photo, mobilePhoto] = entry.split('::');
+        const displayPhoto = (this.state.isMobile && mobilePhoto) ? mobilePhoto : photo;
+        return { photo: displayPhoto, displayPhoto, onOpen: () => { this.setState({ lightboxPhoto: displayPhoto }); document.body.style.overflow = 'hidden'; } };
+      }),
       galleryColumnCount: this.state.isMobile ? 1 : 3,
+      scrollProgress: this.state.scrollProgress,
       lightboxOpen: !!this.state.lightboxPhoto,
       lightboxPhoto: this.state.lightboxPhoto,
       closeLightbox: () => { this.setState({ lightboxPhoto: null }); document.body.style.overflow = ''; },
