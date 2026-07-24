@@ -150,7 +150,8 @@
           </div>
           <div style="padding:28px;">
             <div style="font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:oklch(0.55 0.08 240); margin-bottom:10px;">{{ p.category }}</div>
-            <div style="font-size:20px; font-weight:700; letter-spacing:-0.01em; margin-bottom:8px;">{{ p.name }}</div>
+            <div style="font-size:20px; font-weight:700; letter-spacing:-0.01em; margin-bottom:4px;">{{ p.name }}</div>
+            <sc-if value="{{ p.address }}"><div style="font-size:13px; color:oklch(0.55 0.005 90); margin-bottom:8px;">{{ p.address }}</div></sc-if>
             <div style="font-size:15px; line-height:1.5; color:oklch(0.5 0.005 250);">{{ p.description }}</div>
           </div>
         </div>
@@ -364,7 +365,7 @@
       </div>
     </div>
     <div style="max-width:1400px; margin:0 auto; padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:oklch(0.5 0.005 90);">
-      <div>© 2026 DMR Commercial Drywall. All rights reserved.</div>
+      <div>© 2026 DMR Commercial Drywall. All rights reserved. · DMR Construction Lic# 669187</div>
       <div style="display:flex; gap:24px;">
         <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Privacy Policy</a>
         <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Terms of Service</a>
@@ -555,12 +556,12 @@ class Component extends DCLogic {
     ];
     const R = window.__resources || {};
     const rawProjects = [
-      { name: 'Meridian Office Tower', category: 'Office Buildings', description: 'Full metal framing and drywall across 18 floors of Class-A office space.', photo: R.p1photo || 'uploads/imgi_15_DavidZwirner-GeneralContractor-exterior-ReaumeRichardson-Wide_AdaptiveReuse.jpg' },
-      { name: 'St. Alden Medical Center', category: 'Hospitals', description: 'Fire-rated assemblies and shaft wall systems throughout a new patient tower.', photo: R.p2photo || 'uploads/imgi_19_Stairs2-ReaumeRichardson_AdaptiveReuse_740-1.jpg', photoAfter: R.p2after || 'uploads/imgi_18_Stairs1-ReaumeRichardson_AdaptiveReuse_740-1.jpg' },
-      { name: 'Northgate High School', category: 'Schools', description: 'Acoustic ceiling systems and classroom partitions for a 220,000 sq ft campus.', photo: R.p3photo || 'uploads/imgi_9_WARBY_PARKER_VENICE_05_Square.jpg', photoAfter: R.p3after || 'uploads/imgi_8_WARBY_PARKER_VENICE_14.jpg' },
-      { name: 'Union Row Retail Center', category: 'Retail', description: 'Tenant improvement buildouts across 40 retail suites, on an aggressive schedule.', photo: R.p4photo || 'uploads/imgi_11_single_Beverly_laurel.jpg' },
-      { name: 'Baypoint Distribution Hub', category: 'Industrial', description: 'Large-format shaft wall and fire-rated systems for a logistics facility.', photo: R.p5photo || 'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction.jpg' },
-      { name: 'Federal Annex Building', category: 'Government', description: 'Secure-area partitions and finishing for a federal government renovation.', photo: R.p6photo || 'uploads/imgi_10_Roosevelt-Hotel-Cabana-Suite-Reaume-Richardson-los-angeles-construction.jpg' },
+      { name: 'David Zwirner Los Angeles', category: 'Ground-Up Construction / Art Gallery', address: '606 N. Western Avenue, Los Angeles, CA 90004', description: 'Ground-up construction of a three-story, 14,000-square-foot flagship art gallery in Melrose Hill, with six exhibition and viewing rooms, private offices, two kitchen commissaries, a rooftop entertaining area, and a monumental mahogany-and-glass entrance with an engineered sliding door for large-scale artwork installations.', photo: R.p1photo || 'uploads/imgi_15_DavidZwirner-GeneralContractor-exterior-ReaumeRichardson-Wide_AdaptiveReuse.jpg' },
+      { name: 'The Garland Building', category: 'Historic Restoration', address: '740-748 S Broadway, Los Angeles, CA', description: 'Historic restoration of an 11-story Beaux-Arts landmark in Downtown LA, blending the restored fa\u00e7ade and exposed-brick character with upgraded systems and modern creative office space.', photo: R.p2photo || 'uploads/imgi_19_Stairs2-ReaumeRichardson_AdaptiveReuse_740-1.jpg', photoAfter: R.p2after || 'uploads/imgi_18_Stairs1-ReaumeRichardson_AdaptiveReuse_740-1.jpg' },
+      { name: 'Warby Parker Abbot Kinney', category: 'Retail Build-Out', address: '1422 Abbot Kinney Boulevard, Los Angeles, CA 90291', description: 'Retail build-out transforming an Abbot Kinney storefront into Warby Parker\u2019s first stand-alone West Coast location \u2014 a 2,700-square-foot store combining a clean, modern retail environment with a custom exterior fa\u00e7ade showcasing a mural by Los Angeles artist Geoff McFetridge.', photo: R.p3photo || 'uploads/imgi_9_WARBY_PARKER_VENICE_05_Square.jpg', photoAfter: R.p3after || 'uploads/imgi_8_WARBY_PARKER_VENICE_14.jpg' },
+      { name: 'AKA Hotel Beverly Hills', category: 'Hotel Conversion and Renovation', address: '155 N. Crescent Drive, Beverly Hills, CA 90210', description: 'Transformation of an existing apartment complex into a 115,000-square-foot luxury extended-stay hotel featuring 88 fully furnished suites, with a new second-level terrace, extensive landscaping, a 20-seat screening room, and renovations to the lobby, elevators, illuminated fa\u00e7ade, and entrance.', photo: R.p4photo || 'uploads/imgi_12_AKA-Hotel-Beverly-Hills-Lobby-Reaume-Richardson-los-angeles-construction-6a1ee41b.jpg' },
+      { name: 'Method Studios', category: 'Adaptive Reuse / Creative Production Studio', address: '3401 Exposition Boulevard, Santa Monica, CA 90404', description: 'Adaptive reuse of an existing warehouse into a state-of-the-art post-production and visual-effects facility, with a new second-floor mezzanine, screening theaters, color and effects bays, a commercial kitchen and commissary, and an IT room supporting 350 people.', photo: R.p5photo || 'uploads/imgi_14_Company3-Method-studios-screening-room-reuse-Reaume-Richardson-los-angeles-construction-7cdc0188.jpg' },
+      { name: '1 Hotel West Hollywood', category: 'Hotel Renovation / Rebranding', address: '8490 Sunset Boulevard, West Hollywood, CA 90069', description: 'Renovation and sustainable rebranding of two existing 10-story towers into a nature-inspired luxury hotel, encompassing 283 guest rooms, corridors, elevator lobbies, the pool deck, and extensive exterior landscaping using reclaimed materials and native plants.', photo: R.p6photo || 'uploads/imgi_12_Our-Projects-suit2-One-Hotel-West-Hollywood-Reaume-Richardson-los-angeles-construction.jpg' },
     ];
     const projectsWithHover = rawProjects.map((p, i) => ({
       ...p,

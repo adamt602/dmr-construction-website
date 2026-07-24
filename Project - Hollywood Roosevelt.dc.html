@@ -13,6 +13,9 @@
   html { scroll-behavior:smooth; }
   body { margin:0; background:oklch(0.98 0.003 90); }
   ::selection { background:oklch(0.55 0.08 240 / 0.3); }
+  @keyframes proj-fadeup { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes proj-scrollline { 0%,100% { opacity:0.3; transform:scaleY(0.6); } 50% { opacity:1; transform:scaleY(1); } }
+  @keyframes proj-fadein { from { opacity:0; } to { opacity:1; } }
 </style>
 </helmet>
 
@@ -29,8 +32,8 @@
     <a href="index.dc.html" onClick="{{ goHome }}"><img src="uploads/DMRlogo.png" alt="DMR" style="height:77px; width:108px; display:block;"></a>
     <div style="display:{{ navLinksDisplay }}; gap:48px; align-items:center;">
       <a href="index.dc.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Home</a>
-      <a href="index.dc.html#projects" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Projects</a>
-      <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:13.5px; font-weight:600; padding-bottom:3px; border-bottom:1px solid oklch(0.55 0.08 240);">Gallery</a>
+      <a href="index.dc.html#projects" onClick="{{ goHome }}" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:13.5px; font-weight:600; padding-bottom:3px; border-bottom:1px solid oklch(0.55 0.08 240);">Projects</a>
+      <a href="DMR Gallery.dc.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Gallery</a>
       <a href="index.dc.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Services</a>
       <a href="index.dc.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">About</a>
     </div>
@@ -43,51 +46,80 @@
   <sc-if value="{{ mobileMenuOpen }}">
     <div style="position:fixed; inset:0; z-index:101; background:oklch(0.98 0.003 90 / 0.99); backdrop-filter:blur(16px); display:flex; flex-direction:column; justify-content:center; overflow-y:auto; padding:100px 32px 40px;">
       <a href="index.dc.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Home</a>
-      <a href="index.dc.html#projects" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
-      <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
+      <a href="index.dc.html#projects" onClick="{{ goHome }}" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
+      <a href="DMR Gallery.dc.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
       <a href="index.dc.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Services</a>
       <a href="index.dc.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">About</a>
     </div>
   </sc-if>
 
-  <!-- HEADER -->
-  <section style="padding:190px 48px 64px; max-width:1400px; margin:0 auto; text-align:center;">
-    <div style="font-size:13px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.55 0.08 240); margin-bottom:16px;">Project Gallery</div>
-    <h1 style="font-size:clamp(32px,4.5vw,52px); letter-spacing:-0.02em; font-weight:700; margin:0 0 16px;">The full body of work.</h1>
-    <p style="font-size:17px; color:oklch(0.5 0.005 250); max-width:560px; margin:0 auto;">Framing, finishing, lobbies, and detail shots from commercial builds across office, hospitality, retail, and adaptive reuse projects.</p>
+  <!-- SCROLL PROGRESS -->
+  <div style="position:fixed; top:0; left:0; height:3px; width:{{ scrollProgress }}%; background:oklch(0.55 0.08 240); z-index:150; transition:width 0.1s linear;"></div>
+
+  <!-- HERO IMAGE -->
+  <section style="position:relative; height:82vh; min-height:520px; overflow:hidden;">
+    <div style="position:absolute; top:-10%; left:0; right:0; bottom:-10%; background:linear-gradient(180deg, oklch(0.06 0.005 250 / 0.55) 0%, oklch(0.08 0.005 250 / 0.15) 45%, oklch(0.05 0.005 250 / 0.9) 100%), url('{{ project.heroPhoto }}'); background-size:cover; background-position:center; transform:translateY({{ heroParallax }}px); will-change:transform;"></div>
+    <div style="position:relative; z-index:1; height:100%; display:flex; flex-direction:column; justify-content:flex-end; padding:0 48px 64px; max-width:1400px; margin:0 auto;">
+      <a href="index.dc.html#projects" onClick="{{ goHome }}" style="display:inline-flex; align-items:center; gap:8px; color:oklch(0.85 0.02 90); text-decoration:none; font-size:13px; font-weight:500; margin-bottom:24px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">← All Projects</a>
+      <div style="font-size:13px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.75 0.06 240); margin-bottom:14px; animation:proj-fadeup 0.7s ease 0.1s both;">{{ project.category }}</div>
+      <h1 style="font-size:clamp(34px,5.5vw,64px); line-height:1.05; letter-spacing:-0.02em; font-weight:600; color:oklch(0.98 0.003 90); margin:0; animation:proj-fadeup 0.8s cubic-bezier(0.2,0.8,0.2,1) 0.2s both;">{{ project.name }}</h1>
+      <div style="font-size:15px; color:oklch(0.88 0.01 90 / 0.85); margin-top:14px; animation:proj-fadeup 0.8s ease 0.28s both;">{{ project.address }}</div>
+      <div style="display:flex; align-items:center; gap:10px; margin-top:26px; font-size:11.5px; letter-spacing:0.1em; color:oklch(0.85 0.02 90 / 0.8); text-transform:uppercase; animation:proj-fadeup 0.8s ease 0.35s both;">
+        <span style="display:inline-block; width:1px; height:26px; background:oklch(0.92 0.006 80 / 0.5); animation:proj-scrollline 2.2s ease-in-out infinite;"></span>
+        Scroll to explore
+      </div>
+    </div>
   </section>
 
-  <!-- FULL GALLERY -->
-  <section style="padding:0 48px 160px; max-width:1400px; margin:0 auto;">
-    <div style="column-count:{{ galleryColumnCount }}; column-gap:20px;">
-      <sc-for list="{{ galleryPhotos }}" as="g" hint-placeholder-count="24">
-        <div onClick="{{ g.onOpen }}" style="position:relative; break-inside:avoid; margin-bottom:20px; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 1px 3px oklch(0.18 0.005 250 / 0.08);">
-          <img src="{{ g.displayPhoto }}" alt="Project detail" style="display:block; width:100%; height:auto; transition:transform 0.5s ease, filter 0.4s ease;" style-hover="transform:scale(1.05); filter:brightness(1.05);"/>
-          <sc-if value="{{ g.overlay }}">
-            <div style="position:absolute; inset:0; padding:20px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(0deg, oklch(0.05 0.005 250 / 0.85) 0%, oklch(0.05 0.005 250 / 0.1) 55%, transparent 100%); opacity:0; transition:opacity 0.3s ease;" style-hover="opacity:1;">
-              <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:oklch(0.75 0.06 240); margin-bottom:6px;">{{ g.overlay.title }}</div>
-              <div style="font-size:12.5px; color:oklch(0.85 0.01 90); margin-bottom:6px;">{{ g.overlay.address }}</div>
-              <div style="font-size:13px; color:oklch(0.98 0.003 90); line-height:1.4;">{{ g.overlay.short }}</div>
-            </div>
-          </sc-if>
+  <!-- PROJECT META + DESCRIPTION -->
+  <section data-reveal style="max-width:1400px; margin:0 auto; padding:80px 48px 40px; display:grid; grid-template-columns:{{ overviewColumns }}; gap:64px; opacity:{{ revealOpacity }}; transform:{{ revealTransform }}; transition:opacity 0.8s ease, transform 0.8s ease;">
+    <div>
+      <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.55 0.08 240); margin-bottom:16px;">Overview</div>
+      <p style="font-size:20px; line-height:1.65; color:oklch(0.25 0.005 250); margin:0; max-width:640px; letter-spacing:-0.005em;">{{ project.description }}</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2px; background:oklch(0.9 0.003 90); border-radius:16px; overflow:hidden; align-content:start; height:fit-content;">
+      <sc-for list="{{ project.meta }}" as="m" hint-placeholder-count="6">
+        <div style="background:oklch(1 0 0); padding:22px 20px; transition:background 0.3s ease;" style-hover="background:oklch(0.97 0.005 90);">
+          <div style="font-size:10.5px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:oklch(0.55 0.005 90); margin-bottom:6px;">{{ m.label }}</div>
+          <div style="font-size:14.5px; font-weight:600; color:oklch(0.18 0.005 250); line-height:1.4;">{{ m.value }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PHOTO GRID -->
+  <section style="max-width:1400px; margin:0 auto; padding:32px 48px 140px;">
+    <div style="column-count:{{ galleryColumnCount }}; column-gap:20px; perspective:1400px;">
+      <sc-for list="{{ galleryPhotos }}" as="g" hint-placeholder-count="6">
+        <div data-spotlight onClick="{{ g.onOpen }}" style="position:relative; break-inside:avoid; margin-bottom:20px; border-radius:18px; overflow:hidden; cursor:pointer; box-shadow:0 1px 3px oklch(0.18 0.005 250 / 0.08); transition:box-shadow 0.35s ease;" style-hover="box-shadow:0 24px 48px oklch(0.18 0.005 250 / 0.18);">
+          <img src="{{ g.photo }}" alt="{{ project.name }} detail" style="display:block; width:100%; height:auto;"/>
+          <div style="position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity 0.4s ease; background:radial-gradient(circle 260px at var(--mx,50%) var(--my,50%), oklch(1 0 0 / 0.18), transparent 70%);"></div>
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:20px 18px; background:linear-gradient(0deg, oklch(0.05 0.005 250 / 0.55), transparent); opacity:0; transition:opacity 0.3s ease; display:flex; align-items:center; gap:8px;" style-hover="opacity:1;">
+            <span style="width:30px; height:30px; border-radius:50%; background:oklch(1 0 0 / 0.15); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; color:oklch(0.98 0.003 90); font-size:15px;">⤢</span>
+          </div>
         </div>
       </sc-for>
     </div>
     <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
-      <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:200; background:oklch(0.05 0.005 250 / 0.94); display:flex; align-items:center; justify-content:center; padding:40px; cursor:zoom-out;">
+      <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:200; background:oklch(0.05 0.005 250 / 0.94); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:40px; cursor:zoom-out; animation:proj-fadein 0.25s ease both;">
         <img src="{{ lightboxPhoto }}" alt="Project detail large" style="max-width:100%; max-height:100%; border-radius:8px; box-shadow:0 20px 60px oklch(0 0 0 / 0.5);"/>
         <button onClick="{{ closeLightbox }}" style="position:absolute; top:32px; right:40px; background:none; border:none; color:oklch(0.98 0.003 90); font-size:36px; line-height:1; cursor:pointer; padding:8px;">×</button>
       </div>
     </sc-if>
   </section>
 
+  <!-- BACK TO PROJECTS -->
+  <section style="max-width:1400px; margin:0 auto; padding:0 48px 100px; display:flex; justify-content:center;">
+    <a href="index.dc.html#projects" onClick="{{ goHome }}" data-magnetic style="display:inline-flex; align-items:center; gap:10px; background:oklch(0.18 0.005 250); color:oklch(0.98 0.003 90); padding:16px 30px; border-radius:100px; text-decoration:none; font-size:13.5px; font-weight:600; letter-spacing:0.03em; transition:background 0.25s ease;" style-hover="background:oklch(0.55 0.08 240);">← Back to All Projects</a>
+  </section>
+
   <!-- FOOTER -->
-  <footer style="background:oklch(0.18 0.005 250); padding:64px 48px 40px;">
+  <footer style="background:oklch(0.18 0.005 250); padding:0 48px 40px;">
     <div style="max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding-bottom:40px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
       <img src="uploads/DMRlogo.png" alt="DMR" style="height:72px; width:auto; filter:brightness(0) invert(1);"><div style="display:flex; gap:36px; flex-wrap:wrap;">
         <a href="index.dc.html" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Home</a>
         <a href="index.dc.html#projects" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Projects</a>
-        <a href="DMR Gallery.dc.html" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
+        <a href="DMR Gallery.dc.html" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
         <a href="index.dc.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Services</a>
         <a href="index.dc.html#about" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">About</a>
       </div>
@@ -97,7 +129,7 @@
         <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
       </div>
     </div>
-    <div style="max-width:1400px; margin:0 auto; padding-top:28px; font-size:13px; color:oklch(0.55 0.005 90);">© 2026 DMR Commercial Drywall. All rights reserved.</div>
+    <div style="max-width:1400px; margin:0 auto; padding-top:28px; font-size:13px; color:oklch(0.55 0.005 90);">© 2026 DMR Commercial Drywall. All rights reserved. · DMR Construction Lic# 669187</div>
   </footer>
 
 </div>
@@ -105,7 +137,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { isMobile: false, mobileMenuOpen: false, lightboxPhoto: null, scrollProgress: 0, cursorEnabled: false, cursorHover: false, pageTransitioning: false };
+  state = { isMobile: false, mobileMenuOpen: false, lightboxPhoto: null, cursorEnabled: false, cursorHover: false, pageTransitioning: false, rawScrollY: 0, scrollProgress: 0, revealed: false };
   cursorDotRef = React.createRef();
   cursorRingRef = React.createRef();
   componentDidMount() {
@@ -120,14 +152,15 @@ class Component extends DCLogic {
     this._onScroll = () => {
       const doc = document.documentElement;
       const progress = doc.scrollHeight > doc.clientHeight ? (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100 : 0;
-      this.setState({ scrollProgress: progress });
+      this.setState({ rawScrollY: window.scrollY, scrollProgress: progress });
+      if (!this.state.revealed && window.scrollY > 80) this.setState({ revealed: true });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
     this._mouse = { x: -100, y: -100 };
     this._onMouseMove = (e) => { this._mouse.x = e.clientX; this._mouse.y = e.clientY; };
     window.addEventListener('mousemove', this._onMouseMove);
     this._onMouseOver = (e) => {
-      const isInteractive = !!e.target.closest('a, button, [data-tilt]');
+      const isInteractive = !!e.target.closest('a, button');
       if (isInteractive !== this.state.cursorHover) this.setState({ cursorHover: isInteractive });
     };
     document.addEventListener('mouseover', this._onMouseOver);
@@ -140,15 +173,15 @@ class Component extends DCLogic {
     };
     requestAnimationFrame(cursorLoop);
     this._magnetCleanup = [];
-    this._tiltCleanup = [];
+    this._spotlightCleanup = [];
     setTimeout(() => { this._attachInteractions(); }, 0);
   }
   _attachInteractions() {
     document.querySelectorAll('[data-magnetic]').forEach((el) => {
       const onMove = (e) => {
         const r = el.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) * 0.3;
-        const dy = (e.clientY - (r.top + r.height / 2)) * 0.3;
+        const dx = (e.clientX - (r.left + r.width / 2)) * 0.15;
+        const dy = (e.clientY - (r.top + r.height / 2)) * 0.15;
         el.style.transform = `translate(${dx}px, ${dy}px)`;
       };
       const onLeave = () => {
@@ -160,6 +193,20 @@ class Component extends DCLogic {
       el.addEventListener('mouseleave', onLeave);
       this._magnetCleanup.push(() => { el.removeEventListener('mousemove', onMove); el.removeEventListener('mouseleave', onLeave); });
     });
+    document.querySelectorAll('[data-spotlight]').forEach((card) => {
+      const glow = card.querySelector('div');
+      if (!glow) return;
+      const onMove = (e) => {
+        const r = card.getBoundingClientRect();
+        glow.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+        glow.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+        glow.style.opacity = '1';
+      };
+      const onLeave = () => { glow.style.opacity = '0'; };
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', onLeave);
+      this._spotlightCleanup.push(() => { card.removeEventListener('mousemove', onMove); card.removeEventListener('mouseleave', onLeave); });
+    });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
@@ -168,7 +215,7 @@ class Component extends DCLogic {
     document.removeEventListener('mouseover', this._onMouseOver);
     this._cursorRafActive = false;
     (this._magnetCleanup || []).forEach((fn) => fn());
-    (this._tiltCleanup || []).forEach((fn) => fn());
+    (this._spotlightCleanup || []).forEach((fn) => fn());
     this._unlockScroll();
   }
   _lockScroll() {
@@ -187,53 +234,33 @@ class Component extends DCLogic {
     if (this._scrollY != null) { window.scrollTo(0, this._scrollY); this._scrollY = null; }
   }
   renderVals() {
-    const galleryPaths = [
-      'uploads/imgi_9_Header.jpg::uploads/imgi_16_Project-page-detail-portrait-Downstream1.jpg',
-      'uploads/imgi_9_740-Broadway-Adaptive-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_15_DavidZwirner-GeneralContractor-exterior-ReaumeRichardson-Wide_AdaptiveReuse.jpg',
-      'uploads/imgi_11_DavidZwirner-exteriorBlock5-ReaumeRichardson_AdaptiveReuse.jpg',
-      'uploads/imgi_13_DavidZwirner-exteriorBlock4-ReaumeRichardson_AdaptiveReuse.jpg',
-      'uploads/imgi_14_DavidZwirner-exteriorBlock3-ReaumeRichardson_AdaptiveReuse.jpg',
-      'uploads/imgi_17_DavidZwirner-exteriorBlock7-ReaumeRichardson_AdaptiveReuse-1.jpg',
-      'uploads/imgi_12_LincolnBlvd-exteriorBlock1-ReaumeRichardson_AdaptiveReuse.jpg',
-      'uploads/imgi_18_Stairs1-ReaumeRichardson_AdaptiveReuse_740-1.jpg',
-      'uploads/imgi_19_Stairs2-ReaumeRichardson_AdaptiveReuse_740-1.jpg',
-      'uploads/imgi_8_Framestore-Rooftop-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
-      'uploads/imgi_11_Framestore-Lounch-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
-      'uploads/imgi_9_GOLD_Our-Projects-Slider-Lobby-The-June-Hotel-Reaume-Richardson-los-angeles-construction-1.jpg',
-      'uploads/imgi_10_Our-Projects-Lobby-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_11_Our-Projects-Lobby-bar2-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_12_Our-Projects-Lobby1-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_14_Our-Projects-Lobby3-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_15_Our-Projects-Pool-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_16_Our-Projects-patio-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_10_Roosevelt-Hotel-Cabana-Suite-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_11_single_Beverly_laurel.jpg',
-      'uploads/imgi_9_WARBY_PARKER_VENICE_05_Square.jpg',
-      'uploads/imgi_8_WARBY_PARKER_VENICE_14.jpg',
-      'uploads/imgi_9_AKA-Hotel-Beverly-Hills-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_10_AKA-Hotel-Beverly-Hills-entrance-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_11_AKA-Hotel-Beverly-Hills-Patio-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_12_AKA-Hotel-Beverly-Hills-Lobby-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_9_Company3-Method-studios-adaptive-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_10_Company3-Method-studios-Office-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_11_Company3-Kitchen-studios-Lounge-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_12_Company3-Method-studios-Lounge-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_13_Company3-Method-studios-Lobby-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_14_Company3-Method-studios-screening-room-reuse-Reaume-Richardson-los-angeles-construction.jpg',
-      'uploads/imgi_9_HEADERProject-page-Header1.jpg',
-      'uploads/imgi_10_Project-page-detail-landscape-interior-stairset-shear.jpg',
-      'uploads/imgi_11_Project-page-detail-landscape-interior-openspace1.jpg',
-      'uploads/imgi_12_Project-page-detail-portrait-interior-sawtooth.jpg',
-      'uploads/imgi_13_Project-page-detail-landscape-downstream-interior-mez.jpg',
-      'uploads/imgi_14_Project-page-full-wdith-page-downstream-1.jpg',
-      'uploads/imgi_15_Project-page-detail-landscape-exterior-back-courtyard.jpg',
-      'uploads/imgi_16_Project-page-detail-portrait-Downstream1.jpg',
-      'uploads/imgi_17_Project-page-detail-landscape-downstream-interior-kitchen.jpg',
-      'uploads/imgi_18_Project-page-detail-landscape-interior-openspace2.jpg',
-    ];
+    const project = {
+      name: 'The Hollywood Roosevelt',
+      category: 'Hotel Renovation / Historic Landmark',
+      address: '7000 Hollywood Blvd, Los Angeles, CA 90028',
+      heroPhoto: 'uploads/imgi_9_Roosevelt-Cabana-room-Reaume-Richardson-los-angeles-construction.jpg',
+      description: 'Ongoing renovation of guest rooms, suites, and cabana accommodations at the historic Hollywood Roosevelt Hotel \u2014 restoring the property\u2019s Spanish Colonial Revival character while updating finishes, millwork, and bath detailing to a modern hospitality standard.',
+      meta: [
+        { label: 'Client', value: 'Hollywood Roosevelt Hotel' },
+        { label: 'Project Type', value: 'Hotel Renovation' },
+        { label: 'Location', value: 'Hollywood, California' },
+        { label: 'Scope', value: 'Framing, drywall & finishing' },
+      ],
+      photos: [
+        'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction-ca703e9f.jpg',
+        'uploads/imgi_9_Roosevelt-Cabana-room-Reaume-Richardson-los-angeles-construction.jpg',
+        'uploads/imgi_10_Roosevelt-Hotel-Cabana-Suite-Reaume-Richardson-los-angeles-construction-c5f83f70.jpg',
+        'uploads/imgi_11_Roosevelt-Hotel-Towers-Reaume-Richardson-los-angeles-construction.jpg',
+        'uploads/imgi_12_Roosevelt-Hotel-Tower-room-Reaume-Richardson-los-angeles-construction.jpg',
+      ],
+    };
     return {
+      project,
+      heroParallax: Math.min(this.state.rawScrollY * 0.15, 90),
+      scrollProgress: this.state.scrollProgress,
+      overviewColumns: this.state.isMobile ? '1fr' : '1.3fr 1fr',
+      revealOpacity: this.state.revealed ? 1 : 0,
+      revealTransform: this.state.revealed ? 'translateY(0)' : 'translateY(24px)',
       cursorDotRef: this.cursorDotRef,
       cursorRingRef: this.cursorRingRef,
       cursorDisplay: this.state.cursorEnabled ? 'block' : 'none',
@@ -248,26 +275,8 @@ class Component extends DCLogic {
         this._unlockScroll();
         setTimeout(() => { window.location.href = href; }, 420);
       },
-      galleryPhotos: galleryPaths.map((entry) => {
-        const [photo, mobilePhoto] = entry.split('::');
-        const displayPhoto = (this.state.isMobile && mobilePhoto) ? mobilePhoto : photo;
-        const projectLink = photo === 'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction.jpg' ? 'Project - Hollywood Roosevelt.dc.html' : null;
-        const overlay = projectLink ? {
-          title: 'The Hollywood Roosevelt',
-          address: '7000 Hollywood Blvd, Los Angeles, CA 90028',
-          short: 'Historic hotel renovation \u2014 guest rooms, suites & cabana accommodations.',
-        } : null;
-        return {
-          photo: displayPhoto,
-          displayPhoto,
-          overlay,
-          onOpen: projectLink
-            ? () => { this.setState({ pageTransitioning: true }); this._unlockScroll(); setTimeout(() => { window.location.href = projectLink; }, 420); }
-            : () => { this.setState({ lightboxPhoto: displayPhoto }); document.body.style.overflow = 'hidden'; },
-        };
-      }),
-      galleryColumnCount: this.state.isMobile ? 1 : 3,
-      scrollProgress: this.state.scrollProgress,
+      galleryPhotos: project.photos.map((photo) => ({ photo, onOpen: () => { this.setState({ lightboxPhoto: photo }); document.body.style.overflow = 'hidden'; } })),
+      galleryColumnCount: this.state.isMobile ? 1 : 2,
       lightboxOpen: !!this.state.lightboxPhoto,
       lightboxPhoto: this.state.lightboxPhoto,
       closeLightbox: () => { this.setState({ lightboxPhoto: null }); document.body.style.overflow = ''; },
