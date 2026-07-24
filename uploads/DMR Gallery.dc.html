@@ -12,13 +12,6 @@
 <style>
   html { scroll-behavior:smooth; }
   body { margin:0; background:oklch(0.98 0.003 90); }
-  @media (min-width:881px) {
-    body { scrollbar-width:thin; scrollbar-color:oklch(0.7 0.005 250) transparent; }
-    body::-webkit-scrollbar { width:8px; }
-    body::-webkit-scrollbar-track { background:transparent; }
-    body::-webkit-scrollbar-thumb { background:oklch(0.7 0.005 250); border-radius:100px; }
-    body::-webkit-scrollbar-thumb:hover { background:oklch(0.55 0.005 250); }
-  }
   ::selection { background:oklch(0.55 0.08 240 / 0.3); }
 </style>
 </helmet>
@@ -40,7 +33,6 @@
       <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:13.5px; font-weight:600; padding-bottom:3px; border-bottom:1px solid oklch(0.55 0.08 240);">Gallery</a>
       <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Services</a>
       <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">About</a>
-      <a href="Get a Quote.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Get a Quote</a>
     </div>
     <button onClick="{{ toggleMobileMenu }}" style="display:{{ hamburgerDisplay }}; position:relative; z-index:102; background:none; border:none; padding:8px; cursor:pointer; flex-direction:column; gap:5px; align-items:flex-end;">
       <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:transform 0.3s ease, opacity 0.3s ease; transform:{{ barTopTransform }};"></span>
@@ -54,8 +46,7 @@
       <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
       <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
       <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Services</a>
-      <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">About</a>
-      <a href="Get a Quote.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">Get a Quote</a>
+      <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">About</a>
     </div>
   </sc-if>
 
@@ -91,56 +82,22 @@
   </section>
 
   <!-- FOOTER -->
-  <footer style="background:oklch(0.18 0.005 250); padding:0 {{ footerSidePadding }} 40px;">
-    <div style="max-width:1400px; margin:0 auto; padding:56px 0 64px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
-      <div data-spotlight style="position:relative; overflow:hidden; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; background:oklch(1 0 0 / 0.04); border:1px solid oklch(0.98 0.003 90 / 0.1); border-radius:24px; padding:40px 44px;">
-        <div style="position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity 0.4s ease; background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%), oklch(0.55 0.08 240 / 0.25), transparent 70%); z-index:0;"></div>
-        <div style="position:relative; z-index:1;">
-          <div style="font-size:26px; font-weight:600; letter-spacing:-0.01em; color:oklch(0.98 0.003 90); margin-bottom:8px;">Ready to start your next project?</div>
-          <div style="font-size:15px; color:oklch(0.72 0.005 90);">Tell us about the scope — we'll follow up within one business day.</div>
-        </div>
-        <a href="Get a Quote.dc.html" data-magnetic style="position:relative; z-index:1; display:inline-flex; align-items:center; gap:10px; background:oklch(0.98 0.003 90); color:oklch(0.15 0.005 250); padding:16px 30px; border-radius:100px; text-decoration:none; font-size:13.5px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; flex-shrink:0;" style-hover="background:oklch(0.9 0.003 90);">Get a Quote →</a>
+  <footer style="background:oklch(0.18 0.005 250); padding:64px 48px 40px;">
+    <div style="max-width:1400px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; padding-bottom:40px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
+      <img src="uploads/DMRlogo.png" alt="DMR" style="height:72px; width:auto; filter:brightness(0) invert(1);"><div style="display:flex; gap:36px; flex-wrap:wrap;">
+        <a href="index.html" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Home</a>
+        <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Projects</a>
+        <a href="DMR Gallery.dc.html" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">Services</a>
+        <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14px;" style-hover="color:oklch(0.98 0.003 90);">About</a>
+      </div>
+      <div style="display:flex; gap:16px;">
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social data-magnetic><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.98 0.003 90)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="oklch(0.98 0.003 90)" stroke="none"/></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.7 22H1.6l8.2-9.3L1 2h7l4.9 6.1L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease, transform 0.3s cubic-bezier(0.2,0.8,0.2,1);" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15); transform:translateY(-3px);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
       </div>
     </div>
-    <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:{{ footerGridColumns }}; gap:{{ footerGridGap }}; padding-bottom:48px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
-      <div>
-        <img src="uploads/DMRlogo.png" alt="DMR" style="height:72px; width:auto; filter:brightness(0) invert(1); margin-left:-14px;">
-        <div style="font-size:14px; line-height:1.6; color:oklch(0.6 0.005 90); max-width:280px; margin-top:4px;">Commercial framing, drywall, and finishing for contractors, developers, and institutions nationwide.</div>
-        <div style="display:flex; gap:12px; margin-top:24px;">
-          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.98 0.003 90)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="oklch(0.98 0.003 90)" stroke="none"/></svg></a>
-          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.7 22H1.6l8.2-9.3L1 2h7l4.9 6.1L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a>
-          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
-        </div>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:14px;">
-        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Navigate</div>
-        <a href="index.html" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Home</a>
-        <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Projects</a>
-        <a href="DMR Gallery.dc.html" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
-        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Services</a>
-        <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">About</a>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:14px;">
-        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Services</div>
-        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Metal Framing</a>
-        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Drywall Installation</a>
-        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Fire-Rated Assemblies</a>
-        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Finishing &amp; Taping</a>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:14px;">
-        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Contact</div>
-        <a href="tel:+16612691899" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">661-269-1899</a>
-        <a href="mailto:info@dmrdrywall.com" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">info@dmrdrywall.com</a>
-        <div style="color:oklch(0.6 0.005 90); font-size:14.5px; line-height:1.5;">Los Angeles, CA</div>
-      </div>
-    </div>
-    <div style="max-width:1400px; margin:0 auto; padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:oklch(0.5 0.005 90);">
-      <div>© 2026 DMR Commercial Drywall. All rights reserved. · DMR Construction Lic# 669187</div>
-      <div style="display:flex; gap:24px;">
-        <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Privacy Policy</a>
-        <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Terms of Service</a>
-      </div>
-    </div>
+    <div style="max-width:1400px; margin:0 auto; padding-top:28px; font-size:13px; color:oklch(0.55 0.005 90);">© 2026 DMR Commercial Drywall. All rights reserved.</div>
   </footer>
 
 </div>
@@ -298,7 +255,7 @@ class Component extends DCLogic {
         const overlay = projectLink ? {
           title: 'The Hollywood Roosevelt',
           address: '7000 Hollywood Blvd, Los Angeles, CA 90028',
-          short: 'Historic hotel renovation — guest rooms, suites & cabana accommodations.',
+          short: 'Historic hotel renovation \u2014 guest rooms, suites & cabana accommodations.',
         } : null;
         return {
           photo: displayPhoto,
@@ -314,9 +271,6 @@ class Component extends DCLogic {
       lightboxOpen: !!this.state.lightboxPhoto,
       lightboxPhoto: this.state.lightboxPhoto,
       closeLightbox: () => { this.setState({ lightboxPhoto: null }); document.body.style.overflow = ''; },
-      footerSidePadding: this.state.isMobile ? '24px' : '48px',
-      footerGridColumns: this.state.isMobile ? '1fr' : '1.4fr 1fr 1fr 1fr',
-      footerGridGap: this.state.isMobile ? '36px' : '48px',
       navLinksDisplay: this.state.isMobile ? 'none' : 'flex',
       hamburgerDisplay: this.state.isMobile ? 'flex' : 'none',
       mobileMenuOpen: this.state.mobileMenuOpen,
