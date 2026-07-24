@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<style>
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:oklch(0.98 0.003 90); }
+  @media (min-width:881px) {
+    body { scrollbar-width:thin; scrollbar-color:oklch(0.7 0.005 250) transparent; }
+    body::-webkit-scrollbar { width:8px; }
+    body::-webkit-scrollbar-track { background:transparent; }
+    body::-webkit-scrollbar-thumb { background:oklch(0.7 0.005 250); border-radius:100px; }
+    body::-webkit-scrollbar-thumb:hover { background:oklch(0.55 0.005 250); }
+  }
+  ::selection { background:oklch(0.55 0.08 240 / 0.3); }
+</style>
+</helmet>
+
+<div style="font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif; background:oklch(0.98 0.003 90); color:oklch(0.18 0.005 250); overflow-x:hidden;">
+
+  <div ref="{{ cursorDotRef }}" style="position:fixed; top:0; left:0; width:8px; height:8px; border-radius:50%; background:oklch(0.18 0.005 250); pointer-events:none; z-index:9999; mix-blend-mode:difference; transform:translate3d(-100px,-100px,0); display:{{ cursorDisplay }};"></div>
+  <div ref="{{ cursorRingRef }}" style="position:fixed; top:0; left:0; width:0; height:0; pointer-events:none; z-index:9998; display:{{ cursorDisplay }};">
+    <div style="position:absolute; top:0; left:0; width:36px; height:36px; border-radius:50%; border:1.5px solid oklch(0.18 0.005 250); mix-blend-mode:difference; transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1), opacity 0.25s ease; transform:translate(-50%,-50%) scale({{ cursorRingScale }}); opacity:{{ cursorRingOpacity }};"></div>
+  </div>
+  <div style="position:fixed; inset:0; z-index:500; background:oklch(0.98 0.003 90); opacity:{{ transitionOpacity }}; pointer-events:{{ transitionPointer }}; transition:opacity 0.4s ease;"></div>
+
+  <!-- NAV -->
+  <nav style="position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:16px 48px; background:oklch(0.98 0.003 90 / 0.9); backdrop-filter:blur(16px) saturate(1.4); border-bottom:1px solid oklch(0.18 0.005 250 / 0.08);">
+    <a href="index.html" onClick="{{ goHome }}"><img src="uploads/DMRlogo.png" alt="DMR" style="height:77px; width:108px; display:block;"></a>
+    <div style="display:{{ navLinksDisplay }}; gap:48px; align-items:center;">
+      <a href="index.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Home</a>
+      <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Projects</a>
+      <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:13.5px; font-weight:600; padding-bottom:3px; border-bottom:1px solid oklch(0.55 0.08 240);">Gallery</a>
+      <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Services</a>
+      <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">About</a>
+      <a href="Get a Quote.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:13.5px; font-weight:500; padding-bottom:3px; border-bottom:1px solid transparent;" style-hover="border-bottom:1px solid oklch(0.18 0.005 250);">Get a Quote</a>
+    </div>
+    <button onClick="{{ toggleMobileMenu }}" style="display:{{ hamburgerDisplay }}; position:relative; z-index:102; background:none; border:none; padding:8px; cursor:pointer; flex-direction:column; gap:5px; align-items:flex-end;">
+      <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:transform 0.3s ease, opacity 0.3s ease; transform:{{ barTopTransform }};"></span>
+      <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:opacity 0.3s ease; opacity:{{ barMidOpacity }};"></span>
+      <span style="display:block; width:26px; height:2px; background:oklch(0.18 0.005 250); transition:transform 0.3s ease; transform:{{ barBotTransform }};"></span>
+    </button>
+  </nav>
+  <sc-if value="{{ mobileMenuOpen }}">
+    <div style="position:fixed; inset:0; z-index:101; background:oklch(0.98 0.003 90 / 0.99); backdrop-filter:blur(16px); display:flex; flex-direction:column; justify-content:center; overflow-y:auto; padding:100px 32px 40px;">
+      <a href="index.html" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Home</a>
+      <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Projects</a>
+      <a href="DMR Gallery.dc.html" style="color:oklch(0.55 0.08 240); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Gallery</a>
+      <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">Services</a>
+      <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; border-bottom:1px solid oklch(0.18 0.005 250 / 0.08); flex-shrink:0;">About</a>
+      <a href="Get a Quote.dc.html" style="color:oklch(0.18 0.005 250); text-decoration:none; font-size:clamp(24px,7vw,32px); font-weight:700; padding:16px 0; flex-shrink:0;">Get a Quote</a>
+    </div>
+  </sc-if>
+
+  <!-- HEADER -->
+  <section style="padding:190px 48px 64px; max-width:1400px; margin:0 auto; text-align:center;">
+    <div style="font-size:13px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.55 0.08 240); margin-bottom:16px;">Project Gallery</div>
+    <h1 style="font-size:clamp(32px,4.5vw,52px); letter-spacing:-0.02em; font-weight:700; margin:0 0 16px;">The full body of work.</h1>
+    <p style="font-size:17px; color:oklch(0.5 0.005 250); max-width:560px; margin:0 auto;">Framing, finishing, lobbies, and detail shots from commercial builds across office, hospitality, retail, and adaptive reuse projects.</p>
+  </section>
+
+  <!-- FULL GALLERY -->
+  <section style="padding:0 48px 160px; max-width:1400px; margin:0 auto;">
+    <div style="column-count:{{ galleryColumnCount }}; column-gap:20px;">
+      <sc-for list="{{ galleryPhotos }}" as="g" hint-placeholder-count="24">
+        <div onClick="{{ g.onOpen }}" style="position:relative; break-inside:avoid; margin-bottom:20px; border-radius:16px; overflow:hidden; cursor:pointer; box-shadow:0 1px 3px oklch(0.18 0.005 250 / 0.08);">
+          <img src="{{ g.displayPhoto }}" alt="Project detail" style="display:block; width:100%; height:auto; transition:transform 0.5s ease, filter 0.4s ease;" style-hover="transform:scale(1.05); filter:brightness(1.05);"/>
+          <sc-if value="{{ g.overlay }}">
+            <div style="position:absolute; inset:0; padding:20px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(0deg, oklch(0.05 0.005 250 / 0.85) 0%, oklch(0.05 0.005 250 / 0.1) 55%, transparent 100%); opacity:0; transition:opacity 0.3s ease;" style-hover="opacity:1;">
+              <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:oklch(0.75 0.06 240); margin-bottom:6px;">{{ g.overlay.title }}</div>
+              <div style="font-size:12.5px; color:oklch(0.85 0.01 90); margin-bottom:6px;">{{ g.overlay.address }}</div>
+              <div style="font-size:13px; color:oklch(0.98 0.003 90); line-height:1.4;">{{ g.overlay.short }}</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; z-index:200; background:oklch(0.05 0.005 250 / 0.94); display:flex; align-items:center; justify-content:center; padding:40px; cursor:zoom-out;">
+        <img src="{{ lightboxPhoto }}" alt="Project detail large" style="max-width:100%; max-height:100%; border-radius:8px; box-shadow:0 20px 60px oklch(0 0 0 / 0.5);"/>
+        <button onClick="{{ closeLightbox }}" style="position:absolute; top:32px; right:40px; background:none; border:none; color:oklch(0.98 0.003 90); font-size:36px; line-height:1; cursor:pointer; padding:8px;">×</button>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:oklch(0.18 0.005 250); padding:0 {{ footerSidePadding }} 40px;">
+    <div style="max-width:1400px; margin:0 auto; padding:56px 0 64px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
+      <div data-spotlight style="position:relative; overflow:hidden; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; background:oklch(1 0 0 / 0.04); border:1px solid oklch(0.98 0.003 90 / 0.1); border-radius:24px; padding:40px 44px;">
+        <div style="position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity 0.4s ease; background:radial-gradient(circle 300px at var(--mx,50%) var(--my,50%), oklch(0.55 0.08 240 / 0.25), transparent 70%); z-index:0;"></div>
+        <div style="position:relative; z-index:1;">
+          <div style="font-size:26px; font-weight:600; letter-spacing:-0.01em; color:oklch(0.98 0.003 90); margin-bottom:8px;">Ready to start your next project?</div>
+          <div style="font-size:15px; color:oklch(0.72 0.005 90);">Tell us about the scope — we'll follow up within one business day.</div>
+        </div>
+        <a href="Get a Quote.dc.html" data-magnetic style="position:relative; z-index:1; display:inline-flex; align-items:center; gap:10px; background:oklch(0.98 0.003 90); color:oklch(0.15 0.005 250); padding:16px 30px; border-radius:100px; text-decoration:none; font-size:13.5px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; flex-shrink:0;" style-hover="background:oklch(0.9 0.003 90);">Get a Quote →</a>
+      </div>
+    </div>
+    <div style="max-width:1400px; margin:0 auto; display:grid; grid-template-columns:{{ footerGridColumns }}; gap:{{ footerGridGap }}; padding-bottom:48px; border-bottom:1px solid oklch(0.98 0.003 90 / 0.1);">
+      <div>
+        <img src="uploads/DMRlogo.png" alt="DMR" style="height:72px; width:auto; filter:brightness(0) invert(1); margin-left:-14px;">
+        <div style="font-size:14px; line-height:1.6; color:oklch(0.6 0.005 90); max-width:280px; margin-top:4px;">Commercial framing, drywall, and finishing for contractors, developers, and institutions nationwide.</div>
+        <div style="display:flex; gap:12px; margin-top:24px;">
+          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="oklch(0.98 0.003 90)" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="oklch(0.98 0.003 90)" stroke="none"/></svg></a>
+          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.6L4.7 22H1.6l8.2-9.3L1 2h7l4.9 6.1L18.9 2zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20z"/></svg></a>
+          <a href="#" style="width:38px; height:38px; border-radius:50%; border:1px solid oklch(0.98 0.003 90 / 0.2); display:flex; align-items:center; justify-content:center; transition:border-color 0.3s ease, background 0.3s ease;" style-hover="border-color:oklch(0.55 0.08 240); background:oklch(0.55 0.08 240 / 0.15);" data-social data-magnetic><svg width="14" height="14" viewBox="0 0 24 24" fill="oklch(0.98 0.003 90)"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg></a>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Navigate</div>
+        <a href="index.html" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Home</a>
+        <a href="index.html#projects" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Projects</a>
+        <a href="DMR Gallery.dc.html" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Gallery</a>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Services</a>
+        <a href="index.html#about" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">About</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Services</div>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Metal Framing</a>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Drywall Installation</a>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Fire-Rated Assemblies</a>
+        <a href="index.html#services" onClick="{{ goHome }}" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">Finishing &amp; Taping</a>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="font-size:12.5px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:oklch(0.5 0.005 90); margin-bottom:6px;">Contact</div>
+        <a href="tel:+16612691899" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">661-269-1899</a>
+        <a href="mailto:info@dmrdrywall.com" style="color:oklch(0.75 0.005 90); text-decoration:none; font-size:14.5px; width:fit-content;" style-hover="color:oklch(0.98 0.003 90);">info@dmrdrywall.com</a>
+        <div style="color:oklch(0.6 0.005 90); font-size:14.5px; line-height:1.5;">Los Angeles, CA</div>
+      </div>
+    </div>
+    <div style="max-width:1400px; margin:0 auto; padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:oklch(0.5 0.005 90);">
+      <div>© 2026 DMR Commercial Drywall. All rights reserved. · DMR Construction Lic# 669187</div>
+      <div style="display:flex; gap:24px;">
+        <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Privacy Policy</a>
+        <a href="#" style="color:oklch(0.5 0.005 90); text-decoration:none;" style-hover="color:oklch(0.98 0.003 90);">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false, mobileMenuOpen: false, lightboxPhoto: null, scrollProgress: 0, cursorEnabled: false, cursorHover: false, pageTransitioning: false };
+  cursorDotRef = React.createRef();
+  cursorRingRef = React.createRef();
+  componentDidMount() {
+    this._onResize = () => {
+      const isMobile = window.innerWidth <= 880;
+      const cursorEnabled = !isMobile && window.matchMedia('(pointer: fine)').matches;
+      if (isMobile !== this.state.isMobile) { this.setState({ isMobile, mobileMenuOpen: false }); this._unlockScroll(); }
+      if (cursorEnabled !== this.state.cursorEnabled) this.setState({ cursorEnabled });
+    };
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+    this._onScroll = () => {
+      const doc = document.documentElement;
+      const progress = doc.scrollHeight > doc.clientHeight ? (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100 : 0;
+      this.setState({ scrollProgress: progress });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._mouse = { x: -100, y: -100 };
+    this._onMouseMove = (e) => { this._mouse.x = e.clientX; this._mouse.y = e.clientY; };
+    window.addEventListener('mousemove', this._onMouseMove);
+    this._onMouseOver = (e) => {
+      const isInteractive = !!e.target.closest('a, button, [data-tilt]');
+      if (isInteractive !== this.state.cursorHover) this.setState({ cursorHover: isInteractive });
+    };
+    document.addEventListener('mouseover', this._onMouseOver);
+    this._cursorRafActive = true;
+    const cursorLoop = () => {
+      if (!this._cursorRafActive) return;
+      if (this.cursorDotRef.current) this.cursorDotRef.current.style.transform = `translate3d(${this._mouse.x - 4}px, ${this._mouse.y - 4}px, 0)`;
+      if (this.cursorRingRef.current) this.cursorRingRef.current.style.transform = `translate3d(${this._mouse.x}px, ${this._mouse.y}px, 0)`;
+      requestAnimationFrame(cursorLoop);
+    };
+    requestAnimationFrame(cursorLoop);
+    this._magnetCleanup = [];
+    this._tiltCleanup = [];
+    setTimeout(() => { this._attachInteractions(); }, 0);
+  }
+  _attachInteractions() {
+    document.querySelectorAll('[data-magnetic]').forEach((el) => {
+      const onMove = (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) * 0.3;
+        const dy = (e.clientY - (r.top + r.height / 2)) * 0.3;
+        el.style.transform = `translate(${dx}px, ${dy}px)`;
+      };
+      const onLeave = () => {
+        el.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
+        el.style.transform = '';
+        setTimeout(() => { el.style.transition = ''; }, 400);
+      };
+      el.addEventListener('mousemove', onMove);
+      el.addEventListener('mouseleave', onLeave);
+      this._magnetCleanup.push(() => { el.removeEventListener('mousemove', onMove); el.removeEventListener('mouseleave', onLeave); });
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('mousemove', this._onMouseMove);
+    document.removeEventListener('mouseover', this._onMouseOver);
+    this._cursorRafActive = false;
+    (this._magnetCleanup || []).forEach((fn) => fn());
+    (this._tiltCleanup || []).forEach((fn) => fn());
+    this._unlockScroll();
+  }
+  _lockScroll() {
+    this._scrollY = window.scrollY;
+    requestAnimationFrame(() => {
+      document.body.style.cssText += 'position:fixed;top:-' + this._scrollY + 'px;left:0;right:0;width:100%;overflow:hidden;';
+    });
+  }
+  _unlockScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    if (this._scrollY != null) { window.scrollTo(0, this._scrollY); this._scrollY = null; }
+  }
+  renderVals() {
+    const galleryPaths = [
+      'uploads/imgi_9_Header.jpg::uploads/imgi_16_Project-page-detail-portrait-Downstream1.jpg',
+      'uploads/imgi_9_740-Broadway-Adaptive-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_15_DavidZwirner-GeneralContractor-exterior-ReaumeRichardson-Wide_AdaptiveReuse.jpg',
+      'uploads/imgi_11_DavidZwirner-exteriorBlock5-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_13_DavidZwirner-exteriorBlock4-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_14_DavidZwirner-exteriorBlock3-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_17_DavidZwirner-exteriorBlock7-ReaumeRichardson_AdaptiveReuse-1.jpg',
+      'uploads/imgi_12_LincolnBlvd-exteriorBlock1-ReaumeRichardson_AdaptiveReuse.jpg',
+      'uploads/imgi_18_Stairs1-ReaumeRichardson_AdaptiveReuse_740-1.jpg',
+      'uploads/imgi_19_Stairs2-ReaumeRichardson_AdaptiveReuse_740-1.jpg',
+      'uploads/imgi_8_Framestore-Rooftop-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
+      'uploads/imgi_11_Framestore-Lounch-adaptive-reuse-Reaume-Richardson-Los-Angeles-construction.jpg',
+      'uploads/imgi_9_GOLD_Our-Projects-Slider-Lobby-The-June-Hotel-Reaume-Richardson-los-angeles-construction-1.jpg',
+      'uploads/imgi_10_Our-Projects-Lobby-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_11_Our-Projects-Lobby-bar2-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_12_Our-Projects-Lobby1-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_14_Our-Projects-Lobby3-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_15_Our-Projects-Pool-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_16_Our-Projects-patio-bar-The-June-Hotel-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_10_Roosevelt-Hotel-Cabana-Suite-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_11_single_Beverly_laurel.jpg',
+      'uploads/imgi_9_WARBY_PARKER_VENICE_05_Square.jpg',
+      'uploads/imgi_8_WARBY_PARKER_VENICE_14.jpg',
+      'uploads/imgi_9_AKA-Hotel-Beverly-Hills-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_10_AKA-Hotel-Beverly-Hills-entrance-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_11_AKA-Hotel-Beverly-Hills-Patio-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_12_AKA-Hotel-Beverly-Hills-Lobby-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_9_Company3-Method-studios-adaptive-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_10_Company3-Method-studios-Office-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_11_Company3-Kitchen-studios-Lounge-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_12_Company3-Method-studios-Lounge-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_13_Company3-Method-studios-Lobby-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_14_Company3-Method-studios-screening-room-reuse-Reaume-Richardson-los-angeles-construction.jpg',
+      'uploads/imgi_9_HEADERProject-page-Header1.jpg',
+      'uploads/imgi_10_Project-page-detail-landscape-interior-stairset-shear.jpg',
+      'uploads/imgi_11_Project-page-detail-landscape-interior-openspace1.jpg',
+      'uploads/imgi_12_Project-page-detail-portrait-interior-sawtooth.jpg',
+      'uploads/imgi_13_Project-page-detail-landscape-downstream-interior-mez.jpg',
+      'uploads/imgi_14_Project-page-full-wdith-page-downstream-1.jpg',
+      'uploads/imgi_15_Project-page-detail-landscape-exterior-back-courtyard.jpg',
+      'uploads/imgi_16_Project-page-detail-portrait-Downstream1.jpg',
+      'uploads/imgi_17_Project-page-detail-landscape-downstream-interior-kitchen.jpg',
+      'uploads/imgi_18_Project-page-detail-landscape-interior-openspace2.jpg',
+    ];
+    return {
+      cursorDotRef: this.cursorDotRef,
+      cursorRingRef: this.cursorRingRef,
+      cursorDisplay: this.state.cursorEnabled ? 'block' : 'none',
+      cursorRingScale: this.state.cursorHover ? 1.7 : 1,
+      cursorRingOpacity: this.state.cursorHover ? 1 : 0.6,
+      transitionOpacity: this.state.pageTransitioning ? 1 : 0,
+      transitionPointer: this.state.pageTransitioning ? 'auto' : 'none',
+      goHome: (e) => {
+        e.preventDefault();
+        const href = e.currentTarget.getAttribute('href');
+        this.setState({ mobileMenuOpen: false, pageTransitioning: true });
+        this._unlockScroll();
+        setTimeout(() => { window.location.href = href; }, 420);
+      },
+      galleryPhotos: galleryPaths.map((entry) => {
+        const [photo, mobilePhoto] = entry.split('::');
+        const displayPhoto = (this.state.isMobile && mobilePhoto) ? mobilePhoto : photo;
+        const projectLink = photo === 'uploads/imgi_8_Roosevelt-Slider-Cabana-Suit-Reaume-Richardson-los-angeles-construction.jpg' ? 'Project - Hollywood Roosevelt.dc.html' : null;
+        const overlay = projectLink ? {
+          title: 'The Hollywood Roosevelt',
+          address: '7000 Hollywood Blvd, Los Angeles, CA 90028',
+          short: 'Historic hotel renovation — guest rooms, suites & cabana accommodations.',
+        } : null;
+        return {
+          photo: displayPhoto,
+          displayPhoto,
+          overlay,
+          onOpen: projectLink
+            ? () => { this.setState({ pageTransitioning: true }); this._unlockScroll(); setTimeout(() => { window.location.href = projectLink; }, 420); }
+            : () => { this.setState({ lightboxPhoto: displayPhoto }); document.body.style.overflow = 'hidden'; },
+        };
+      }),
+      galleryColumnCount: this.state.isMobile ? 1 : 3,
+      scrollProgress: this.state.scrollProgress,
+      lightboxOpen: !!this.state.lightboxPhoto,
+      lightboxPhoto: this.state.lightboxPhoto,
+      closeLightbox: () => { this.setState({ lightboxPhoto: null }); document.body.style.overflow = ''; },
+      footerSidePadding: this.state.isMobile ? '24px' : '48px',
+      footerGridColumns: this.state.isMobile ? '1fr' : '1.4fr 1fr 1fr 1fr',
+      footerGridGap: this.state.isMobile ? '36px' : '48px',
+      navLinksDisplay: this.state.isMobile ? 'none' : 'flex',
+      hamburgerDisplay: this.state.isMobile ? 'flex' : 'none',
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMobileMenu: () => this.setState((s) => ({ mobileMenuOpen: !s.mobileMenuOpen }), () => { if (this.state.mobileMenuOpen) this._lockScroll(); else this._unlockScroll(); }),
+      barTopTransform: this.state.mobileMenuOpen ? 'translateY(7px) rotate(45deg)' : 'none',
+      barMidOpacity: this.state.mobileMenuOpen ? 0 : 1,
+      barBotTransform: this.state.mobileMenuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none',
+    };
+  }
+}
+
+</script>
+</body>
+</html>
